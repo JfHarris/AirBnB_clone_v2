@@ -15,11 +15,13 @@ class BaseModel:
     updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        if not kwargs:
+        if not kwargs or ("created_at" not in kwargs and "updated_at" not in kwargs):
             from models import storage
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            if kwargs:
+                self.__dict__.update(kwargs)
         else:
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
@@ -51,5 +53,4 @@ class BaseModel:
         if '_sa_instance_state' in dictionary:
             del dictionary['sa_instance_state']
         return dictionary
-# edit kwargs, etc
 # add def delete
