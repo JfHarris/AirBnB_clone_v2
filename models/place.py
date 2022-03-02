@@ -2,13 +2,17 @@
 """ Place Module for HBNB project """
 import models
 from models.review import Review
+from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.base_model import Base
-from sqlalchemy import Column, Float, Integer, String, ForeignKey
+from sqlalchemy import Column, Float, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 storage_comm = getenv("HBNB_TYPE_STORAGE")
 
+Table('place_amenity', Base.metadata,
+        Column('place_id', String(60), ForeignKey('places.id'), primary_key=True),
+        Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True))
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -25,15 +29,29 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
 
-    #idk if any of this is right
     if storage_comm == "db":
-        reviews = relationship("Review", cascade="all, delete", backref="user")
+        reviews = relationship("Review", cascade="all, delete", backref="place")
+        amenities = relationship("Amenity", secondary='place_amenity', viewonly=False, backred="place_amenities")
     else:
         @property
         def reviews(self):
             review_inst = []
-            all_cities = models.storage.all(Review)
-            for review in review_inst.values():
-                if review.state_id == self.id:
+            all_reviews = models.storage.all(Review)
+            for review in all_reviews.values():
+                if review.place_id == self.id:
                     review_inst.append(review)
             return review_inst
+
+        @property
+        def amenities(self):
+            amenities_inst = []
+            all_amenities = models.storage.all(Amenity)
+            for amenity in all_amenities.values():
+                if self.id == amenity.place_id:
+                    amenities_inst.append(amenity)
+            return amenities_inst
+
+        @amenities.setter
+        def amenities(self, obj):
+            if isinstance(obj, Amenity):
+                self.append(obj)
