@@ -11,8 +11,11 @@ from os import getenv
 storage_comm = getenv("HBNB_TYPE_STORAGE")
 
 Table('place_amenity', Base.metadata,
-        Column('place_id', String(60), ForeignKey('places.id'), primary_key=True),
-        Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True))
+      Column('place_id', String(60), ForeignKey('places.id'),
+             primary_key=True),
+      Column('amenity_id', String(60), ForeignKey('amenities.id'),
+             primary_key=True))
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -30,8 +33,10 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     if storage_comm == "db":
-        reviews = relationship("Review", cascade="all, delete", backref="place")
-        amenities = relationship("Amenity", secondary='place_amenity', viewonly=False, backred="place_amenities")
+        reviews = relationship("Review", cascade="all, delete",
+                               backref="place")
+        amenities = relationship("Amenity", secondary='place_amenity',
+                                 viewonly=False, backred="place_amenities")
     else:
         @property
         def reviews(self):
