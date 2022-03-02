@@ -6,5 +6,6 @@ from models.base_model import Base
 
 
 class Amenity(BaseModel, Base):
+    """Amenities Class"""
     __tablename__ = 'amenities'
     name = Column(String(128), nullable=False)

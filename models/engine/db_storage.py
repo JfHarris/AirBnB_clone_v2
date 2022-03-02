@@ -40,6 +40,7 @@ class DBStorage():
     __session = None
 
     def __init__(self):
+        """Initializes the MySQL database"""
         HBNB_ENV = getenv('HBNB_ENV')
         HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
         HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
@@ -52,6 +53,7 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
+        """Retrieves all objects requested"""
         all_dict = {}
         for exmpl in class_dict:
             if cls is None or cls == exmpl:
@@ -62,22 +64,27 @@ class DBStorage():
         return (all_dict)
 
     def new(self, obj):
+        """adds an object"""
         if obj is not None:
             self.__session.add(obj)
             self.save()
 
     def save(self):
+        """saves an object to the database"""
         self.__session.commit()
 
     def delete(self, obj=None):
+        """removes an object"""
         if obj is not None:
             del obj
             self.save()
 
     def reload(self):
+        """Retrieves all objects on start-up"""
         Base.metadata.create_all(self.__engine)
         Session = scoped_session(sessionmaker(bind=self.__engine,
                                               expire_on_commit=False))
 
     def close(self):
+        """Closes session"""
         self.__session.close()

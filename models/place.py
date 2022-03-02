@@ -40,6 +40,7 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
+            """Getter for reviews in a Place"""
             review_inst = []
             all_reviews = models.storage.all(Review)
             for review in all_reviews.values():
@@ -49,6 +50,7 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
+            """Getter for Amenities in a Place"""
             amenities_inst = []
             all_amenities = models.storage.all(Amenity)
             for amenity in all_amenities.values():
@@ -58,5 +60,6 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj):
+            """setter for amenities in a Place"""
             if isinstance(obj, Amenity):
                 self.append(obj)

@@ -19,6 +19,7 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
+            """Getter for Cities in a Statre"""
             city_inst = []
             all_cities = models.storage.all(City)
             for city in all_cities.values():
