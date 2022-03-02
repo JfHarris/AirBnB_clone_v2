@@ -22,7 +22,8 @@ class_dict = {
     "City": City,
     "Place": Place,
     "State": State,
-    "User": User
+    "User": User,
+    "Review": Review
 }
 
 class DBStorage():
