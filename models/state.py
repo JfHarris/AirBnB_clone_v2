@@ -15,7 +15,8 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
     if storage_comm == "db":
-        cities = relationship("City", cascade="all, delete, delete-orphan", backref="state")
+        cities = relationship("City", cascade="all, delete,\
+            delete-orphan", backref="state")
     else:
         @property
         def cities(self):
