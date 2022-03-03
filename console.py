@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(new_instance, param[0], value)
                 except:
                     pass
-        storage.save()
+        storage.new()
         print(new_instance.id)
         storage.save()
 

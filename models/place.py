@@ -11,16 +11,16 @@ from os import getenv
 storage_comm = getenv("HBNB_TYPE_STORAGE")
 
 Table('place_amenity', Base.metadata,
-      Column('place_id', String(60), ForeignKey('places.id'),
+      Column('place_id', ForeignKey('places.id'), nullable=False,
              primary_key=True),
-      Column('amenity_id', String(60), ForeignKey('amenities.id'),
+      Column('amenity_id', ForeignKey('amenities.id'), nullable=False,
              primary_key=True))
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
-    city_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128),  nullable=False)
     description = Column(String(128),  nullable=False)
