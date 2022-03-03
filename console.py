@@ -175,10 +175,10 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
         try:
             try:
-                del storage._FileStorage_obbjects[key]._sa_instance_state
+                del storage.all()[key]._sa_instance_state
             except:
                 pass
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -229,7 +229,7 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     try:
                         del v._sa_instance_state
@@ -237,7 +237,7 @@ class HBNBCommand(cmd.Cmd):
                         pass
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 try:
                     del v._sa_instance_state
                 except:
