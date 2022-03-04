@@ -75,7 +75,7 @@ class test_basemodel(unittest.TestCase):
             new = self.value(**n)
 
     def test_kwargs_one(self):
-        """ """
+        """ Test Kwargs"""
         n = {'Name': 'test'}
         try:
             with self.assertRaises(KeyError):
