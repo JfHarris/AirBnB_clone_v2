@@ -133,13 +133,13 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     value = float(param[1])
                     setattr(new_instance, param[0], value)
-                except:
+                except Exception:
                     pass
             else:
                 try:
                     value = int(param[1])
                     setattr(new_instance, param[0], value)
-                except:
+                except Exception:
                     pass
         storage.new(new_instance)
         print(new_instance.id)
@@ -176,7 +176,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             try:
                 del storage.all()[key]._sa_instance_state
-            except:
+            except Exception:
                 pass
             print(storage.all()[key])
         except KeyError:
@@ -233,14 +233,14 @@ class HBNBCommand(cmd.Cmd):
                 if k.split('.')[0] == args:
                     try:
                         del v._sa_instance_state
-                    except:
+                    except Exception:
                         pass
                     print_list.append(str(v))
         else:
             for k, v in storage.all().items():
                 try:
                     del v._sa_instance_state
-                except:
+                except Exception:
                     pass
                 print_list.append(str(v))
 
@@ -350,6 +350,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
