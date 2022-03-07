@@ -47,7 +47,7 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Retrieves all objects requested"""
+        """Retrieves all objects requested V2"""
         all_dict = {}
         if cls is None:
             for inst in our_insts:
