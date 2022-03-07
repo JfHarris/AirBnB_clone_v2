@@ -56,13 +56,14 @@ class DBStorage():
     def all(self, cls=None):
         """Retrieves all objects requested"""
         all_dict = {}
-        for exmpl in class_dict:
-            if cls is None or cls == exmpl:
-                our_objs = self.__session.query(class_dict[exmpl]).all()
-                for obj in our_objs:
-                    key = obj.__class__.__name__ + "." + obj.id
-                    all_dict[key] = obj
-        return (all_dict)
+        if cls is None:
+            for inst in class_dict:
+                for obj in self.__session.query(inst):
+                    all_dict["{}.{}".format(inst.__name__,obj.id)] = obj
+        elif cls in class_dict:
+            for obj in self.__session.query(cls):
+                all_dict["{}.{}".format(cls.__name__, obj.id)] = obj
+        return all_dict
 
     def new(self, obj):
         """adds an object"""
