@@ -32,3 +32,9 @@ class test_dbstorage(unittest. TestCase):
         for obj in storage.all().values():
             temp = obj
         self.assertTrue(temp is obj)
+
+    def test_save(self):
+        """ FileStorage save method """
+        new = BaseModel()
+        storage.save()
+        self.assertTrue(os.path.exists('file.json'))
