@@ -14,12 +14,14 @@ def greet():
     """
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """
     display HBNB
     """
     return 'HBNB'
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def cisfun(text):
