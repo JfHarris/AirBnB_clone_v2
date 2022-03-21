@@ -12,21 +12,12 @@ storage_comm = getenv("HBNB_TYPE_STORAGE")
 
 class State(BaseModel, Base):
     """ State class """
-    if models.storage_comm == "db":
-        __tablename__ = 'states'
+    __tablename__ = 'states'
+    if storage_comm == "db":
         name = Column(String(128), nullable=False)
         cities = relationship("City", cascade="all, delete,\
             delete-orphan", backref="state")
     else:
-        name = ""
-
-    def __init__(self, *args, **kwargs):
-        """
-        init state
-        """
-        super().__init__(*args, **kwargs)
-
-    if models.storage_comm != "db":
         @property
         def cities(self):
             """
