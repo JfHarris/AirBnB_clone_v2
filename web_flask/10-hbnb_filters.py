@@ -9,6 +9,7 @@ from models import *
 
 app = Flask(__name__)
 
+
 @app.route('/hbnb_filters', strict_slashes=False)
 def hb_filter():
     """
@@ -16,7 +17,9 @@ def hb_filter():
     """
     states = storage.all("State").values()
     amenities = storage.all("Amenity").values()
-    return render_template('10-hbnb_filters.html', states=states, amenities=amenities)
+    return render_template('10-hbnb_filters.html', states=states,
+                           amenities=amenities)
+
 
 @app.teardown_appcontext
 def teardown_hb(exception):
