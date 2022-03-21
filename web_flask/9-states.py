@@ -9,6 +9,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     """
@@ -19,6 +20,7 @@ def states_list():
     states_val = sorted(val, key=attrgetter('name'))
     return render_template('7-states_list.html', states_val=states_val)
 
+
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
     """
@@ -28,6 +30,7 @@ def cities_by_states():
     val = states.values()
     states_val = sorted(val, key=attrgetter('name'))
     return render_template('8-cities_by_states.html', states_val=states_val)
+
 
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
@@ -44,6 +47,7 @@ def state_id(id=None):
         if state.id == id:
             return render_template('9-states.html', states_val=state, id=id)
     return render_template('9-states.html', states_val=None, id=id)
+
 
 @app.teardown_appcontext
 def teardown(self):
