@@ -52,7 +52,7 @@ class DBStorage():
         if cls is None:
             for inst in our_insts:
                 for obj in self.__session.query(inst):
-                    all_dict["{}.{}".format(inst.__name__,obj.id)] = obj
+                    all_dict["{}.{}".format(inst.__name__, obj.id)] = obj
         elif cls in our_insts:
             for obj in self.__session.query(cls):
                 all_dict["{}.{}".format(cls.__name__, obj.id)] = obj
