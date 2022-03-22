@@ -4,7 +4,7 @@ script that starts a Flask web application
 must use storage for fetching data from the storage engine
 After each request you must remove the current SQLAlchemy Session
 """
-
+from models.state import State
 from flask import Flask
 from flask import render_template
 from models import storage
@@ -18,9 +18,7 @@ def states_list():
     """
     for fetching data from the storage engine
     """
-    states = storage.all("State")
-    val = states.values()
-    states_val = sorted(val, key=attrgetter('name'))
+    states_val = storage.all(State)
     return render_template('7-states_list.html', states_val=states_val)
 
 
