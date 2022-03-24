@@ -8,9 +8,10 @@ from models.state import State
 from flask import Flask
 from flask import render_template
 from models import storage
-from operator import attrgetter
 
 app = Flask(__name__)
+app.url_map.strict_slashes=False
+states_val = storage.all(State)
 
 
 @app.route('/states_list', strict_slashes=False)
@@ -18,7 +19,6 @@ def states_list():
     """
     for fetching data from the storage engine
     """
-    states_val = storage.all(State)
     return render_template('7-states_list.html', states_val=states_val)
 
 
